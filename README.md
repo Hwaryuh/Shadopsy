@@ -40,6 +40,10 @@ Serve the build output (`dist/`) with any static file server, or deploy via GitH
 npm run dev
 ```
 
+## Live Demo
+
+Try it out here: [murinn.cloud/Shadopsy](https://murinn.cloud/Shadopsy/)
+
 ## License
 
 ISC
