@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+@import 'highlight.js/styles/atom-one-dark.css';
+
+@theme {
+    --color-surface:                    var(--palette-surface);
+    --color-surface-container:          var(--palette-surface-container);
+    --color-surface-container-low:      var(--palette-surface-container-low);
+    --color-surface-container-high:     var(--palette-surface-container-high);
+    --color-surface-container-highest:  var(--palette-surface-container-highest);
+    --color-surface-container-lowest:   var(--palette-surface-container-lowest);
+    --color-surface-variant:            var(--palette-surface-variant);
+    --color-on-surface:                 var(--palette-on-surface);
+    --color-on-surface-variant:         var(--palette-on-surface-variant);
+    --color-outline:                    var(--palette-outline);
+    --color-outline-variant:            var(--palette-outline-variant);
+    --color-primary:                    var(--palette-primary);
+    --color-primary-dim:                var(--palette-primary-dim);
+    --color-primary-container:          var(--palette-primary-container);
+    --color-on-primary:                 var(--palette-on-primary);
+    --color-secondary:                  var(--palette-secondary);
+    --color-secondary-dim:              var(--palette-secondary-dim);
+    --color-secondary-container:        var(--palette-secondary-container);
+    --color-on-secondary:               var(--palette-on-secondary);
+    --color-state-edited:               var(--palette-state-edited);
+    --color-state-added:                var(--palette-state-added);
+    --color-state-renamed:              var(--palette-state-renamed);
+    --color-state-removed:              var(--palette-state-removed);
+    --color-state-edited-container:     var(--palette-state-edited-container);
+    --color-state-added-container:      var(--palette-state-added-container);
+    --color-state-renamed-container:    var(--palette-state-renamed-container);
+    --color-state-removed-container:    var(--palette-state-removed-container);
+
+    --color-ext-vsh:                    var(--palette-ext-vsh);
+    --color-ext-fsh:                    var(--palette-ext-fsh);
+    --color-ext-glsl:                   var(--palette-ext-glsl);
+    --color-ext-json:                   var(--palette-ext-json);
+
+    --font-headline: 'Space Grotesk', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Light palette */
+:root {
+    --palette-surface:                  #f9f9f6;
+    --palette-surface-container:        #ecefea;
+    --palette-surface-container-low:    #f3f4f0;
+    --palette-surface-container-high:   #e5e9e4;
+    --palette-surface-container-highest:#dee4de;
+    --palette-surface-container-lowest: #ffffff;
+    --palette-surface-variant:          #dee4de;
+    --palette-on-surface:               #2e3430;
+    --palette-on-surface-variant:       #5a615c;
+    --palette-outline:                  #767c77;
+    --palette-outline-variant:          #adb3ae;
+    --palette-primary:                  #506354;
+    --palette-primary-dim:              #445748;
+    --palette-primary-container:        #d3e8d5;
+    --palette-on-primary:               #e8fde9;
+    --palette-secondary:                #775757;
+    --palette-secondary-dim:            #6a4b4c;
+    --palette-secondary-container:      #ffdad9;
+    --palette-on-secondary:             #fff7f6;
+    --palette-error:                    #9f403d;
+    --palette-error-container:          #fe8983;
+
+    --palette-state-edited:             #506354;
+    --palette-state-added:              #445748;
+    --palette-state-renamed:            #6a4b4c;
+    --palette-state-removed:            #767c77;
+    --palette-state-edited-container:   #d3e8d5;
+    --palette-state-added-container:    #d3e8d5;
+    --palette-state-renamed-container:  #ffdad9;
+    --palette-state-removed-container:  #ecefea;
+
+    --palette-ext-vsh:                  #4a7c6f;
+    --palette-ext-fsh:                  #7c4a6a;
+    --palette-ext-glsl:                 #4a6a7c;
+    --palette-ext-json:                 #7c6a4a;
+
+    --scrollbar-track:                  #f3f4f0;
+    --scrollbar-thumb:                  #c5dac7;
+    --diff-line-added-bg:               rgba(80, 99, 84, 0.12);
+    --diff-line-removed-bg:             rgba(119, 87, 87, 0.12);
+    --diff-line-empty-bg:               rgba(236, 239, 234, 0.6);
+    --diff-split-border:                rgba(173, 179, 174, 0.4);
+}
+
+/* Dark palette */
+.dark {
+    --palette-surface:                  #0d0e0e;
+    --palette-surface-container:        #181a1a;
+    --palette-surface-container-low:    #121414;
+    --palette-surface-container-high:   #1d2020;
+    --palette-surface-container-highest:#232627;
+    --palette-surface-container-lowest: #000000;
+    --palette-surface-variant:          #232627;
+    --palette-on-surface:               #e4e6e6;
+    --palette-on-surface-variant:       #e2e2eb;
+    --palette-outline:                  #737676;
+    --palette-outline-variant:          #454849;
+    --palette-primary:                  #afcccd;
+    --palette-primary-dim:              #a2bebf;
+    --palette-primary-container:        #314b4c;
+    --palette-on-primary:               #2a4546;
+    --palette-secondary:                #ba9595;
+    --palette-secondary-dim:            #ba9595;
+    --palette-secondary-container:      #4f3435;
+    --palette-on-secondary:             #311a1a;
+    --palette-error:                    #ee7d77;
+    --palette-error-container:          #7f2927;
+
+    --palette-state-edited:             #9bb2db;
+    --palette-state-added:              #89da93;
+    --palette-state-renamed:            #e2ca97;
+    --palette-state-removed:            #df95a3;
+    --palette-state-edited-container:   #103233;
+    --palette-state-added-container:    #314b4c;
+    --palette-state-renamed-container:  #756257;
+    --palette-state-removed-container:  #1d2020;
+
+    --palette-ext-vsh:                  #7dd3b0;
+    --palette-ext-fsh:                  #d09fc0;
+    --palette-ext-glsl:                 #7db8d3;
+    --palette-ext-json:                 #d3b87d;
+
+    --scrollbar-track:                  #0d0e0e;
+    --scrollbar-thumb:                  #314b4c;
+    --diff-line-added-bg:               rgba(49, 75, 76, 0.3);
+    --diff-line-removed-bg:             rgba(79, 52, 53, 0.3);
+    --diff-line-empty-bg:               rgba(18, 20, 20, 0.5);
+    --diff-split-border:                rgba(69, 72, 73, 0.4);
+}
+
+
+:root {
+    --icon-size-tree: 16px;
+    --icon-size-card: 18px;
+    --font-size-badge: 10px;
+    --font-size-line-num: 10px;
+    --font-size-tree: 12px;
+    --font-size-version-label: 11px;
+    --font-size-status: 12px;
+    --font-size-path: 12px;
+    --font-size-control: 12px;
+    --font-size-code: 12px;
+}
+
+@layer utilities {
+    .text-badge         { font-size: var(--font-size-badge); }
+    .text-line-num      { font-size: var(--font-size-line-num); }
+    .text-tree          { font-size: var(--font-size-tree); }
+    .text-version-label { font-size: var(--font-size-version-label); }
+    .text-status        { font-size: var(--font-size-status); }
+    .text-path          { font-size: var(--font-size-path); }
+    .text-control       { font-size: var(--font-size-control); }
+    .text-code          { font-size: var(--font-size-code); }
+}
+
+.icon-tree { font-size: var(--icon-size-tree) !important; }
+.icon-card { font-size: var(--icon-size-card) !important; }
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+}
+
+.scanlines {
+    background:
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); }
+
+body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.filter-btn {
+    color: var(--color-on-surface-variant);
+    border-color: var(--color-outline-variant);
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    color: var(--color-on-surface);
+    border-color: var(--color-outline);
+    background-color: var(--color-surface-container-high);
+}
+
+.sort-btn {
+    color: var(--color-on-surface-variant);
+    border-color: var(--color-outline-variant);
+    cursor: pointer;
+}
+
+.sort-btn.active {
+    color: var(--color-on-surface);
+    border-color: var(--color-outline);
+    background-color: var(--color-surface-container-high);
+}
+
+.search-scope-btn {
+    color: var(--color-on-surface-variant);
+    border-color: var(--color-outline-variant);
+    cursor: pointer;
+}
+
+.search-scope-btn.active {
+    color: var(--color-on-surface);
+    border-color: var(--color-outline);
+    background-color: var(--color-surface-container-high);
+}
+
+.filter-btn[data-state="edited"].active  { color: var(--color-state-edited);  border-color: var(--color-state-edited); }
+.filter-btn[data-state="added"].active   { color: var(--color-state-added);   border-color: var(--color-state-added); }
+.filter-btn[data-state="renamed"].active { color: var(--color-state-renamed); border-color: var(--color-state-renamed); }
+.filter-btn[data-state="removed"].active { color: var(--color-state-removed); border-color: var(--color-state-removed); }
+
+.diff-line-added td {
+    background-color: var(--diff-line-added-bg);
+}
+.diff-line-added td:nth-child(1),
+.diff-line-added td:nth-child(2) {
+    border-left: 3px solid var(--color-state-added);
+}
+
+.diff-line-removed td {
+    background-color: var(--diff-line-removed-bg);
+}
+.diff-line-removed td:nth-child(1) {
+    border-left: 3px solid var(--color-state-removed);
+}
+
+.diff-line-empty-a td:nth-child(1),
+.diff-line-empty-a td:nth-child(2) {
+    background-color: var(--diff-line-empty-bg);
+}
+
+.diff-line-empty-b td:nth-child(3),
+.diff-line-empty-b td:nth-child(4) {
+    background-color: var(--diff-line-empty-bg);
+}
+@keyframes card-highlight {
+    0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 0%, transparent); }
+    20%  { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 50%, transparent); }
+    100% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-primary) 0%, transparent); }
+}
+
+.card-highlight {
+    animation: card-highlight 800ms ease-out forwards;
+}
