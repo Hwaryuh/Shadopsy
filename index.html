@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHADOPSY</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+  <script type="module" crossorigin src="./assets/index-DdLAjKSc.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CMhX4bb8.css">
+</head>
+<body class="bg-surface text-on-surface">
+
+    <div class="fixed inset-0 scanlines z-[60] opacity-[0.03] pointer-events-none"></div>
+
+    <!-- TopAppBar -->
+    <nav class="fixed top-0 left-0 right-0 h-14 z-50 flex items-center justify-between px-6 bg-surface-container-highest border-b border-outline-variant/30">
+        <div class="flex items-center gap-8">
+            <span class="text-lg font-black tracking-[-0.04em] text-primary font-headline">SHADOPSY</span>
+            <div id="version-selector" class="flex items-center gap-2">
+                <select id="select-a" class="px-3 py-1 bg-surface-container border border-outline-variant text-on-surface font-mono text-control tracking-widest uppercase focus:outline-none focus:border-primary"></select>
+                <span class="text-on-surface-variant font-mono text-xs">→</span>
+                <select id="select-b" class="px-3 py-1 bg-surface-container border border-outline-variant text-on-surface font-mono text-control tracking-widest uppercase focus:outline-none focus:border-primary"></select>
+                <button id="compare-btn" class="px-4 py-1 bg-primary-container border border-primary/30 text-primary font-mono text-control tracking-widest uppercase hover:bg-primary/20 transition-all cursor-pointer">COMPARE</button>
+            </div>
+            <div id="filters" class="hidden items-center gap-1 p-1 bg-surface-container border border-outline-variant">
+                <button class="filter-btn px-2 py-1 border font-mono text-badge tracking-widest uppercase flex items-center gap-1.5 transition-all" data-state="edited">
+                    <span class="w-1.5 h-1.5 bg-state-edited inline-block"></span>EDITED
+                </button>
+                <button class="filter-btn px-2 py-1 border font-mono text-badge tracking-widest uppercase flex items-center gap-1.5 transition-all" data-state="added">
+                    <span class="w-1.5 h-1.5 bg-state-added inline-block"></span>ADDED
+                </button>
+                <button class="filter-btn px-2 py-1 border font-mono text-badge tracking-widest uppercase flex items-center gap-1.5 transition-all" data-state="renamed">
+                    <span class="w-1.5 h-1.5 bg-state-renamed inline-block"></span>RENAMED
+                </button>
+                <button class="filter-btn px-2 py-1 border font-mono text-badge tracking-widest uppercase flex items-center gap-1.5 transition-all" data-state="removed">
+                    <span class="w-1.5 h-1.5 bg-state-removed inline-block"></span>REMOVED
+                </button>
+                <div class="w-px h-4 bg-outline-variant/50 mx-1"></div>
+                <div id="status" class="pr-2 text-on-surface-variant font-mono text-status tracking-widest"></div>
+            </div>
+        </div>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 border border-outline-variant">
+                    <button class="search-scope-btn active px-2 py-0.5 border-r border-outline-variant font-mono text-badge tracking-widest uppercase transition-all" data-scope="path">PATH</button>
+                    <button class="search-scope-btn px-2 py-0.5 border-r border-outline-variant font-mono text-badge tracking-widest uppercase transition-all" data-scope="content">CODE</button>
+                    <input id="search-input" type="text" disabled placeholder="Compare first..."
+                        class="w-40 px-2 py-1 bg-surface-container font-mono text-control text-on-surface tracking-wide focus:outline-none disabled:opacity-30 disabled:cursor-not-allowed" />
+                </div>
+                <button id="theme-toggle" class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer">light_mode</button>
+            </div>
+    </nav>
+
+    <!-- SideNavBar -->
+    <aside id="sidebar" class="fixed left-0 top-14 bottom-0 w-64 z-40 bg-surface-container border-r border-outline-variant/30 flex flex-col overflow-y-auto">
+        <div class="flex items-center gap-1 px-2 pt-3 pb-1 border-b border-outline-variant/20">
+            <button class="sort-btn active px-2 py-0.5 border font-mono text-badge tracking-widest uppercase transition-all" data-sort="alpha">A-Z</button>
+            <button class="sort-btn px-2 py-0.5 border font-mono text-badge tracking-widest uppercase transition-all" data-sort="ext">EXT</button>
+            <button class="sort-btn px-2 py-0.5 border font-mono text-badge tracking-widest uppercase transition-all" data-sort="state">STATE</button>
+        </div>
+        <div id="file-tree" class="flex flex-col py-4 px-2"></div>
+        <div id="sidebar-handle" class="absolute right-0 top-0 bottom-0 w-1 cursor-col-resize hover:bg-primary/50 transition-colors"></div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="ml-64 mt-14 p-8 min-h-screen">
+        <div id="diff-list" class="flex flex-col gap-6"></div>
+    </main>
+
+</body>
+</html>
