@@ -1,8 +1,9 @@
-import { DiffResult } from "../../shared/DiffResult";
+import { DiffResult, DiffLine } from "../../shared/DiffResult";
 import { DomComponent } from "../types";
 import { DiffTable, EmptySide } from "./DiffTable";
 import { resolveLang } from "../utils/highlight";
 import { fetchContentDiff, fetchSingleContent } from "../api";
+import { STATE_TEXT_COLORS } from "../utils/stateColor";
 
 export class FileDiffContent implements DomComponent {
     readonly el: HTMLElement;
@@ -46,7 +47,7 @@ export class FileDiffContent implements DomComponent {
     private renderSplitView(lines: DiffLine[], path: string, emptySide: EmptySide): void {
         const lang = resolveLang(path);
         const state = this.result.state;
-        const stateColor = `text-state-${state}`;
+        const stateColor = STATE_TEXT_COLORS[state];
 
         const { a: tableA, b: tableB } = DiffTable.of(lines, lang, emptySide);
         tableA.classList.add("font-mono", "text-code", "leading-relaxed");

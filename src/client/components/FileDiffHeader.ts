@@ -1,12 +1,6 @@
 import { DiffResult } from "../../shared/DiffResult";
 import { resolveFileIcon } from "../utils/fileIcon";
-
-const STATE_COLORS: Record<string, string> = {
-    edited:  "border-state-edited text-state-edited bg-state-edited-container/10",
-    added:   "border-state-added text-state-added bg-state-added-container/10",
-    removed: "border-state-removed text-state-removed bg-state-removed-container/10",
-    renamed: "border-state-renamed text-state-renamed bg-state-renamed-container/10",
-};
+import { STATE_COLORS } from "../utils/stateColor";
 
 function findDivergenceIndex(a: string[], b: string[]): number {
     const len = Math.min(a.length, b.length);
