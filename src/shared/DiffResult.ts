@@ -13,7 +13,7 @@ export interface DiffLine {
     lineB: number | null;
     textA: string | null;
     textB: string | null;
-    type: "added" | "removed" | "unchanged" | "empty";
+    type: "added" | "removed" | "edited" | "unchanged" | "empty";
 }
 
 export type DiffResult =

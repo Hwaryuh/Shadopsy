@@ -183,7 +183,7 @@ function computeContentDiff(aText: string, bText: string): DiffLine[] {
             result.push({ lineA: lineA++, lineB: lineB++, textA: a.text, textB: b.text, type: "unchanged" });
             ai++; bi++;
         } else if (a?.type === "removed" && b?.type === "added") {
-            result.push({ lineA: lineA++, lineB: lineB++, textA: a.text, textB: b.text, type: "removed" });
+            result.push({ lineA: lineA++, lineB: lineB++, textA: a.text, textB: b.text, type: "edited" });
             ai++; bi++;
         } else if (a?.type === "removed") {
             result.push({ lineA: lineA++, lineB: null, textA: a.text, textB: null, type: "removed" });

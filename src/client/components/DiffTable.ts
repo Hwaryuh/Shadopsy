@@ -37,7 +37,7 @@ export class DiffTable {
                 tdTextA.classList.add("select-none");
                 trA.classList.add("diff-line-empty-a");
             } else {
-                if (line.type === "removed") trA.classList.add("diff-line-removed");
+                if (line.type === "removed" || line.type === "edited") trA.classList.add("diff-line-removed");
                 tdTextA.innerHTML = highlight(line.textA, lang);
             }
 
@@ -65,7 +65,7 @@ export class DiffTable {
                 tdTextB.classList.add("select-none");
                 trB.classList.add("diff-line-empty-b");
             } else {
-                if (line.type === "added") trB.classList.add("diff-line-added");
+                if (line.type === "added" || line.type === "edited") trB.classList.add("diff-line-added");
                 tdTextB.innerHTML = highlight(line.textB, lang);
             }
 
