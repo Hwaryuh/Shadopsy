@@ -1,4 +1,4 @@
-const STATES = ["added", "removed", "renamed", "edited"] as const;
+export const STATES = ["added", "removed", "renamed", "edited"] as const;
 export type DiffState = typeof STATES[number];
 export type StateCounts = Record<DiffState, number>;
 

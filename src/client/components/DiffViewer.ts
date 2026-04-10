@@ -1,7 +1,7 @@
 import { DiffResult } from "../../shared/DiffResult";
 import { FileDiff } from "./FileDiff";
 import { FileTree } from "./FileTree";
-import { FilterBar, DiffState, StateCounts } from "./FilterBar";
+import { FilterBar, DiffState, StateCounts, STATES } from "./FilterBar";
 
 export class DiffViewer {
     private listEl: HTMLElement;
@@ -10,15 +10,24 @@ export class DiffViewer {
     private filterBar: FilterBar;
     private items: FileDiff[] = [];
 
+    private activeStates: Set<DiffState> = new Set(STATES);
+    private searchPaths: Set<string> | null = null;
+    private pathQuery: string | undefined = undefined;
+
     constructor() {
         this.listEl = document.getElementById("diff-list")!;
         this.statusEl = document.getElementById("status")!;
         this.fileTree = new FileTree();
-        this.filterBar = new FilterBar((activeStates) => this.applyFilter(activeStates));
+        this.filterBar = new FilterBar((activeStates) => {
+            this.activeStates = activeStates;
+            this.updateVisibility();
+        });
     }
 
     render(results: DiffResult[], versionA: string, versionB: string): void {
         this.listEl.innerHTML = "";
+        this.searchPaths = null;
+        this.pathQuery = undefined;
         this.filterBar.show();
 
         const counts: StateCounts = { added: 0, removed: 0, renamed: 0, edited: 0 };
@@ -34,21 +43,26 @@ export class DiffViewer {
         for (const item of this.items) {
             this.listEl.appendChild(item.el);
         }
-    }
 
-    private applyFilter(activeStates: Set<DiffState>): void {
-        for (const item of this.items) {
-            const stateVisible = activeStates.has(item.result.state as DiffState);
-            item.el.style.display = stateVisible ? "" : "none";
-        }
+        this.updateVisibility();
     }
 
     applySearch(paths: Set<string> | null, pathQuery?: string): void {
+        this.searchPaths = paths;
+        this.pathQuery = pathQuery;
+        this.updateVisibility();
+    }
+
+    private updateVisibility(): void {
         for (const item of this.items) {
             const path = item.result.state === "renamed" ? item.result.b.path : item.result.path;
-            const visibleByPaths = paths === null || paths.has(path);
-            const visibleByQuery = !pathQuery || path.toLowerCase().includes(pathQuery.toLowerCase());
-            item.el.style.display = visibleByPaths && visibleByQuery ? "" : "none";
+
+            const visibleByFilter = this.activeStates.has(item.result.state as DiffState);
+
+            const visibleBySearch = this.searchPaths === null || this.searchPaths.has(path);
+            const visibleByPathQuery = !this.pathQuery || path.toLowerCase().includes(this.pathQuery.toLowerCase());
+
+            item.el.style.display = visibleByFilter && visibleBySearch && visibleByPathQuery ? "" : "none";
         }
     }
 }
