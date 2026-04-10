@@ -82,14 +82,18 @@ export class DiffTable {
     static synchronizeRowHeights(a: HTMLElement, b: HTMLElement): void {
         const rowsA = a.querySelectorAll<HTMLTableRowElement>("tr[data-row]");
         const rowsB = b.querySelectorAll<HTMLTableRowElement>("tr[data-row]");
+        const len = Math.min(rowsA.length, rowsB.length);
 
-        rowsA.forEach((trA, i) => {
-            const trB = rowsB[i];
-            if (!trB) return;
-            const height = Math.max(trA.getBoundingClientRect().height, trB.getBoundingClientRect().height);
-            trA.style.height = `${height}px`;
-            trB.style.height = `${height}px`;
-        });
+        const heights = new Float64Array(len);
+        for (let i = 0; i < len; i++) {
+            heights[i] = Math.max(rowsA[i].getBoundingClientRect().height, rowsB[i].getBoundingClientRect().height);
+        }
+
+        for (let i = 0; i < len; i++) {
+            const h = `${heights[i]}px`;
+            rowsA[i].style.height = h;
+            rowsB[i].style.height = h;
+        }
     }
 
     private static wrapTable(tbody: HTMLTableSectionElement): HTMLElement {
