@@ -3,7 +3,7 @@ import { DomComponent } from "../types";
 import { DiffTable, EmptySide } from "./DiffTable";
 import { resolveLang } from "../utils/highlight";
 import { fetchContentDiff, fetchSingleContent } from "../api";
-import { STATE_TEXT_COLORS } from "../utils/stateColor";
+import { STATE_TEXT_COLORS, STATE_BG_COLORS } from "../utils/stateColor";
 
 export class FileDiffContent implements DomComponent {
     readonly el: HTMLElement;
@@ -14,12 +14,12 @@ export class FileDiffContent implements DomComponent {
     }
 
     async load(): Promise<void> {
-        this.el.innerHTML = `<div class="px-6 py-4 font-mono text-control text-on-surface-variant">Loading...</div>`;
+        this.el.innerHTML = `<div class="px-4 py-4 font-mono text-control text-on-surface-variant/70 loading-pulse border-t border-outline-variant/40">Dissecting…</div>`;
 
         try {
             await this.fetchAndRender();
         } catch {
-            this.el.innerHTML = `<div class="px-6 py-4 font-mono text-control text-error">Failed to load.</div>`;
+            this.el.innerHTML = `<div class="px-4 py-4 font-mono text-control text-error border-t border-outline-variant/40">Failed to load.</div>`;
         }
     }
 
@@ -48,27 +48,37 @@ export class FileDiffContent implements DomComponent {
         const lang = resolveLang(path);
         const state = this.result.state;
         const stateColor = STATE_TEXT_COLORS[state];
+        const stateBg = STATE_BG_COLORS[state];
 
         const { a: tableA, b: tableB } = DiffTable.of(lines, lang, emptySide);
         tableA.classList.add("font-mono", "text-code", "leading-relaxed");
         tableB.classList.add("font-mono", "text-code", "leading-relaxed");
 
+        const makeVersionHeader = (version: string): HTMLElement => {
+            const h = document.createElement("div");
+            h.className = "flex items-center gap-2 px-4 py-1.5 text-version-label font-mono font-semibold tracking-[0.14em] uppercase bg-surface-container-low/60 border-b border-outline-variant/40";
+
+            const dot = document.createElement("span");
+            dot.className = `w-1.5 h-1.5 rounded-full shrink-0 ${stateBg}`;
+
+            const label = document.createElement("span");
+            label.className = stateColor;
+            label.textContent = version;
+
+            h.append(dot, label);
+            return h;
+        };
+
         const colA = document.createElement("div");
-        colA.className = "border-r border-outline-variant/10 overflow-hidden";
-        const headerA = document.createElement("div");
-        headerA.className = `px-4 py-2 text-version-label font-black tracking-widest ${stateColor} uppercase bg-surface-container-low border-b border-outline-variant/10`;
-        headerA.textContent = this.versionA;
-        colA.append(headerA, tableA);
+        colA.className = "border-r border-(--diff-split-border) overflow-hidden";
+        colA.append(makeVersionHeader(this.versionA), tableA);
 
         const colB = document.createElement("div");
         colB.className = "overflow-hidden";
-        const headerB = document.createElement("div");
-        headerB.className = `px-4 py-2 text-version-label font-black tracking-widest ${stateColor} uppercase bg-surface-container-low border-b border-outline-variant/10`;
-        headerB.textContent = this.versionB;
-        colB.append(headerB, tableB);
+        colB.append(makeVersionHeader(this.versionB), tableB);
 
         const grid = document.createElement("div");
-        grid.className = "grid grid-cols-2";
+        grid.className = "grid grid-cols-2 border-t border-outline-variant/40";
         grid.append(colA, colB);
 
         this.el.innerHTML = "";

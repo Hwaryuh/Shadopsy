@@ -8,19 +8,6 @@ import { DiffResult } from "../shared/DiffResult";
 
 new ResizableSidebar();
 
-const html = document.documentElement;
-const themeToggle = document.getElementById("theme-toggle")!;
-
-const savedTheme = localStorage.getItem("theme") ?? "dark";
-html.classList.toggle("dark", savedTheme === "dark");
-themeToggle.textContent = savedTheme === "dark" ? "light_mode" : "dark_mode";
-
-themeToggle.addEventListener("click", () => {
-    const isDark = html.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    themeToggle.textContent = isDark ? "light_mode" : "dark_mode";
-});
-
 const viewer = new DiffViewer();
 let currentDiffs: DiffResult[] = [];
 
@@ -48,7 +35,10 @@ const searchBar = new SearchBar(async (query, scope) => {
 
 const selector = new VersionSelector(async (a, b) => {
     const status = document.getElementById("status")!;
+    const compareBtn = document.getElementById("compare-btn") as HTMLButtonElement;
     status.textContent = "Loading...";
+    compareBtn.disabled = true;
+    compareBtn.classList.add("loading-pulse");
 
     try {
         currentDiffs = await fetchDiff(a, b);
@@ -57,6 +47,9 @@ const selector = new VersionSelector(async (a, b) => {
     } catch (e) {
         console.error(e);
         status.textContent = "Failed to load diff.";
+    } finally {
+        compareBtn.disabled = false;
+        compareBtn.classList.remove("loading-pulse");
     }
 });
 

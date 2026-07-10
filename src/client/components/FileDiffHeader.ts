@@ -91,10 +91,14 @@ function buildPathSpans(
 export class FileDiffHeader {
     static of(result: DiffResult): HTMLElement {
         const header = document.createElement("div");
-        header.className = `diff-file-header flex items-center justify-between px-6 py-3 bg-surface-container-highest border-l-4 ${STATE_COLORS[result.state]} cursor-pointer select-none hover:bg-surface-container transition-colors`;
+        header.className = `diff-file-header flex items-center justify-between gap-4 px-4 py-2.5 border-l-[3px] ${STATE_COLORS[result.state]} cursor-pointer select-none hover:bg-surface-container-low transition-colors`;
 
         const left = document.createElement("div");
-        left.className = "flex items-center gap-3";
+        left.className = "flex items-center gap-2.5 min-w-0";
+
+        const chevron = document.createElement("span");
+        chevron.className = "diff-chevron material-symbols-outlined icon-tree text-on-surface-variant/50 shrink-0";
+        chevron.textContent = "chevron_right";
 
         const icon = document.createElement("span");
         icon.className = "material-symbols-outlined icon-card";
@@ -102,6 +106,7 @@ export class FileDiffHeader {
         icon.textContent = resolveFileIcon(iconPath.split("/").pop() ?? iconPath);
 
         const pathWrap = document.createElement("span");
+        pathWrap.className = "min-w-0 truncate whitespace-nowrap";
 
         if (result.state === "renamed") {
             const fromSegs = result.a.path.split("/");
@@ -136,10 +141,10 @@ export class FileDiffHeader {
             pathWrap.append(dir, fileWrap);
         }
 
-        left.append(icon, pathWrap);
+        left.append(chevron, icon, pathWrap);
 
         const badge = document.createElement("div");
-        badge.className = `flex items-center gap-1.5 px-2 py-0.5 border font-mono text-badge tracking-widest uppercase cursor-pointer ${STATE_COLORS[result.state]}`;
+        badge.className = `flex items-center shrink-0 px-2.5 py-0.5 rounded-full border font-mono text-badge font-medium tracking-[0.1em] uppercase ${STATE_COLORS[result.state]}`;
         badge.textContent = result.state.toUpperCase();
 
         header.append(left, badge);

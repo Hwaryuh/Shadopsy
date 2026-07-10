@@ -43,7 +43,7 @@ function renderNode(name: string, node: TreeNode, depth: number): HTMLElement {
     if (node.fileDiff) {
         const state = node.fileDiff.result.state;
         const row = document.createElement("div");
-        row.className = `flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-surface-container-high transition-colors`;
+        row.className = `flex items-center gap-2 py-1 px-2 rounded-[6px] cursor-pointer hover:bg-surface-container-high transition-colors`;
         row.style.paddingLeft = `${depth * 12 + 8}px`;
 
         const icon = document.createElement("span");
@@ -82,7 +82,7 @@ function renderNode(name: string, node: TreeNode, depth: number): HTMLElement {
         let collapsed = false;
 
         const header = document.createElement("div");
-        header.className = "flex items-center gap-2 py-1 px-2 cursor-pointer hover:bg-surface-container-high transition-colors select-none";
+        header.className = "flex items-center gap-2 py-1 px-2 rounded-[6px] cursor-pointer hover:bg-surface-container-high transition-colors select-none";
         header.style.paddingLeft = `${depth * 12 + 8}px`;
 
         const arrow = document.createElement("span");

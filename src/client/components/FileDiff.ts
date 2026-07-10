@@ -14,8 +14,9 @@ export class FileDiff implements DomComponent {
         versionB: string
     ) {
         this.el = document.createElement("div");
-        this.el.className = "bg-surface-container-lowest border border-outline-variant/10 overflow-hidden";
+        this.el.className = "diff-card bg-surface-container-lowest rounded-[10px] shadow-card overflow-hidden";
         this.el.dataset.state = result.state;
+        this.el.dataset.open = "false";
         this.el.dataset.path = result.state === "renamed" ? result.b.path : result.path;
 
         this.content = new FileDiffContent(result, versionA, versionB);
@@ -31,6 +32,7 @@ export class FileDiff implements DomComponent {
     private async toggle(): Promise<void> {
         const isOpen = !this.content.el.classList.contains("hidden");
         this.content.el.classList.toggle("hidden");
+        this.el.dataset.open = String(!isOpen);
         if (!isOpen && !this.loaded) {
             this.loaded = true;
             await this.content.load();

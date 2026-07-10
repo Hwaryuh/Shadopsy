@@ -37,11 +37,22 @@ export class DiffViewer {
 
         this.filterBar.setCounts(counts);
 
+        document.getElementById("empty-state")?.classList.add("hidden");
+
         this.items = results.map(r => new FileDiff(r, versionA, versionB));
         this.fileTree.render(this.items);
 
-        for (const item of this.items) {
-            this.listEl.appendChild(item.el);
+        for (let i = 0; i < this.items.length; i++) {
+            const el = this.items[i].el;
+            if (i < 12) {
+                el.classList.add("card-in");
+                el.style.animationDelay = `${i * 40}ms`;
+                el.addEventListener("animationend", () => {
+                    el.classList.remove("card-in");
+                    el.style.animationDelay = "";
+                }, { once: true });
+            }
+            this.listEl.appendChild(el);
         }
 
         this.updateVisibility();

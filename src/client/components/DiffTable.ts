@@ -22,11 +22,11 @@ export class DiffTable {
             const lineNumA = emptySide === "a" ? line.lineB : line.lineA;
 
             const tdNumA = document.createElement("td");
-            tdNumA.className = "w-12 text-right pr-4 select-none border-r border-outline-variant/10 text-line-num bg-surface-container-low/30 text-on-surface-variant/50";
+            tdNumA.className = "diff-line-num w-12 text-right pr-3 select-none border-r border-outline-variant/30 text-line-num bg-surface-container-low/40 text-on-surface-variant/40";
             tdNumA.textContent = lineNumA !== null ? String(lineNumA) : "";
 
             const tdTextA = document.createElement("td");
-            tdTextA.className = "px-4 py-0.5 whitespace-pre-wrap break-all text-on-surface-variant";
+            tdTextA.className = "px-4 py-0.5 whitespace-pre-wrap break-all text-on-surface/85";
 
             if (emptySide === "a") {
                 tdTextA.innerHTML = "&nbsp;";
@@ -50,11 +50,11 @@ export class DiffTable {
             const lineNumB = emptySide === "b" ? line.lineA : line.lineB;
 
             const tdNumB = document.createElement("td");
-            tdNumB.className = "w-12 text-right pr-4 select-none border-r border-outline-variant/10 text-line-num bg-surface-container-low/30 text-on-surface-variant/50";
+            tdNumB.className = "diff-line-num w-12 text-right pr-3 select-none border-r border-outline-variant/30 text-line-num bg-surface-container-low/40 text-on-surface-variant/40";
             tdNumB.textContent = lineNumB !== null ? String(lineNumB) : "";
 
             const tdTextB = document.createElement("td");
-            tdTextB.className = "px-4 py-0.5 whitespace-pre-wrap break-all text-on-surface-variant";
+            tdTextB.className = "px-4 py-0.5 whitespace-pre-wrap break-all text-on-surface/85";
 
             if (emptySide === "b") {
                 tdTextB.innerHTML = "&nbsp;";

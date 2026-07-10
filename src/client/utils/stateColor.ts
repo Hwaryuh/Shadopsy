@@ -13,3 +13,10 @@ export const STATE_TEXT_COLORS: Record<DiffState, string> = {
     removed: "text-state-removed",
     renamed: "text-state-renamed",
 };
+
+export const STATE_BG_COLORS: Record<DiffState, string> = {
+    edited:  "bg-state-edited",
+    added:   "bg-state-added",
+    removed: "bg-state-removed",
+    renamed: "bg-state-renamed",
+};
