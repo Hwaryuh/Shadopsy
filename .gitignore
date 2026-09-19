@@ -19,3 +19,8 @@ Thumbs.db
 .vscode/
 *.suo
 *.user
+# glslck generated artifacts
+tools/glslck/classes/
+tools/glslck/versions/
+tools/glslck/cp.txt
+tools/glslck/cfr.jar
